@@ -535,6 +535,14 @@ struct bar *bar_create(uint32_t did)
         kCGSHighQualityResamplingTagBit |
         kCGSIgnoreForExposeTagBit
     };
+    // workaround: `kCGSDisableShadowTagBit` makes spacebar only show on one space on macOS 12, so we remove it
+    if (__builtin_available(macOS 12.0, *)) {
+      set_tags[0] = 
+        kCGSStickyTagBit |
+        kCGSModalWindowTagBit |
+        kCGSHighQualityResamplingTagBit |
+        kCGSIgnoreForExposeTagBit;
+    }
 
     uint32_t clear_tags[2] = { 0, 0 };
     *((int8_t *)(clear_tags) + 0x5) = 0x20;
@@ -552,6 +560,18 @@ struct bar *bar_create(uint32_t did)
     SLSSetMouseEventEnableFlags(g_connection, bar->id, false);
     SLSSetWindowLevel(g_connection, bar->id, CGWindowLevelForKey(4));
     bar->context = SLWindowContextCreate(g_connection, bar->id, 0);
+
+    // workaround: disable shadow on macOS 12
+    if (__builtin_available(macOS 12.0, *)) {
+      CFIndex shadow_density = 0;
+      CFNumberRef shadow_density_cf = CFNumberCreate(kCFAllocatorDefault, kCFNumberCFIndexType, &shadow_density);
+      const void *keys[1] = { CFSTR("com.apple.WindowShadowDensity") };
+      const void *values[1] = {  shadow_density_cf };
+      CFDictionaryRef shadow_props_cf = CFDictionaryCreate(NULL, keys, values, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+      CGSWindowSetShadowProperties(bar->id, shadow_props_cf);
+      CFRelease(shadow_density_cf);
+      CFRelease(shadow_props_cf);
+    }
 
     int refresh_frequency = 5;
     int shell_refresh_frequency = 5;
