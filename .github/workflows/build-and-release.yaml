@@ -12,9 +12,7 @@ on:
 
 jobs:
   build-and-release:
-    # TODO: Move to macos-11.0 when it's out of private preview
-    #       https://github.com/actions/virtual-environments/issues/2486
-    runs-on: macos-10.15
+    runs-on: macos-11
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -28,12 +26,11 @@ jobs:
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
       - name: Install Nix
-        uses: cachix/install-nix-action@v12
+        uses: cachix/install-nix-action@v16
         with:
-          install_url: https://github.com/numtide/nix-flakes-installer/releases/download/nix-2.4pre20210207_fd6eaa1/install
-
-      - name: Enable Flakes
-        run: echo "experimental-features = nix-command flakes" | sudo tee -a /etc/nix/nix.conf
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
       - name: Build
         id: build-bin
@@ -47,7 +44,7 @@ jobs:
 
       - name: Build with Nix
         run: |
-          nix build
+          nix build .
 
       - name: Get the current tag name
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
