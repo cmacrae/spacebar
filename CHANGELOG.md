@@ -4,7 +4,15 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/cmacrae/spacebar/compare/v1.3.0...HEAD)
+## [Unreleased](https://github.com/cmacrae/spacebar/compare/v1.4.0...HEAD)
+
+## [1.4.0](https://github.com/cmacrae/spacebar/releases/tag/v1.4.0) - 2022-02-14
+**Changed**
+- Fixed a bug that caused segfaults & rendering issues on Monterey (thanks [@cxa](https://github.com/cxa)!)
+- Use Big Sur for CI builds
+
+**Added**
+- Support Apple Silicon for Nix package/flake
 
 ## [1.3.0](https://github.com/cmacrae/spacebar/releases/tag/v1.3.0) - 2020-04-25
 **Changed**

@@ -20,7 +20,7 @@
   <a href="https://github.com/cmacrae/spacebar/projects/1">
     <img src="https://img.shields.io/badge/Project-tasks-7fdbda.svg?logo=trello" alt="GitHub Project Badge">
   </a>
-  <a href="https://github.com/cmacrae/spacebar/compare/v1.3.0...HEAD">
+  <a href="https://github.com/cmacrae/spacebar/compare/v1.4.0...HEAD">
     <img src="https://img.shields.io/github/commits-since/cmacrae/spacebar/latest.svg?color=ea907a" alt="Version Badge">
   </a>
   <a href="https://github.com/cmacrae/spacebar/discussions">
@@ -40,7 +40,7 @@ spacebar is a minimal status bar for macOS. Ideal for use with tiling window man
 
 ## Installation
 A package and service to install and manage spacebar is provided in two flavours: [Homebrew](https://brew.sh) & [Nix](https://nixos.org).  
-There is also a precompiled binary archive available in [the latest release assets](https://github.com/cmacrae/spacebar/releases/tag/v1.3.0).  
+There is also a precompiled binary archive available in [the latest release assets](https://github.com/cmacrae/spacebar/releases/tag/v1.4.0).  
 
 ### Homebrew
 spacebar can be installed using Homebrew from the `cmacrae/formulae` tap
@@ -55,7 +55,7 @@ A [Flake](https://nixos.wiki/wiki/Flakes) is also available in this repository a
 ```nix
 {
   inputs.darwin.url = "github:lnl7/nix-darwin";
-  inputs.spacebar.url = "github:cmacrae/spacebar/v1.3.0";
+  inputs.spacebar.url = "github:cmacrae/spacebar/v1.4.0";
 
   outputs = { self, darwin, spacebar }: {
     darwinConfigurations.example = darwin.lib.darwinSystem {
@@ -70,7 +70,7 @@ A [Flake](https://nixos.wiki/wiki/Flakes) is also available in this repository a
   };
 }
 ```
-Or try it out with `nix run github:cmacrae/spacebar/v1.3.0`!
+Or try it out with `nix run github:cmacrae/spacebar/v1.4.0`!
 
 spacebar can be configured and managed in a declarative manner using the `services.spacebar` module in [nix-darwin](https://github.com/LnL7/nix-darwin)
 
@@ -94,7 +94,7 @@ touch ~/.config/spacebar/spacebarrc
 chmod +x ~/.config/spacebar/spacebarrc
 ```
 
-Here's a configuration taken from [`examples/`](https://github.com/cmacrae/spacebar/blob/v1.3.0/examples/spacebarrc):
+Here's a configuration taken from [`examples/`](https://github.com/cmacrae/spacebar/blob/v1.4.0/examples/spacebarrc):
 ```
 #!/usr/bin/env sh
 
@@ -132,7 +132,7 @@ echo "spacebar configuration loaded.."
 ```
 _Note: Ensure fonts are installed to use glyphs_
 
-For further configuration documentation, please see [`man spacebar`](https://github.com/cmacrae/spacebar/blob/v1.3.0/doc/spacebar.asciidoc)
+For further configuration documentation, please see [`man spacebar`](https://github.com/cmacrae/spacebar/blob/v1.4.0/doc/spacebar.asciidoc)
 
 ### Declarative configuration with Nix
 If you're using the `services.spacebar` module from [nix-darwin](https://github.com/LnL7/nix-darwin), you can configure spacebar like so:
