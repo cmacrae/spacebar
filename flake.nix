@@ -1,34 +1,25 @@
 {
   description = "A minimal status bar for macOS";
 
-  # TODO: Move to official nixpkgs once PR is merged
-  #       https://github.com/NixOS/nixpkgs/pull/117780
-  inputs.nixpkgs.url = "github:cmacrae/nixpkgs/fix_spacebar";
+  inputs.nixpkgs.url = github:NixOS/nixpkgs/21.11;
+  inputs.flake-utils.url = github:numtide/flake-utils;
 
-  outputs = { self, nixpkgs }:
-    let
-      pkgs = import nixpkgs {
-        config = {};
-        system = "x86_64-darwin";
-      };
-
-      buildInputs = with pkgs.darwin.apple_sdk.frameworks; [
-        Carbon
-        Cocoa
-        ScriptingBridge
-        SkyLight
-      ];
-
-      shellInputs = buildInputs ++ [ pkgs.asciidoctor ];
-    in
-      {
-        packages.x86_64-darwin.spacebar =
-          pkgs.stdenv.mkDerivation rec {
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachSystem [ "aarch64-darwin" "x86_64-darwin" ] (system:
+      let pkgs = nixpkgs.legacyPackages.${system}; in
+      rec {
+        packages = flake-utils.lib.flattenTree {
+          spacebar = pkgs.stdenv.mkDerivation rec {
             pname = "spacebar";
-            version = "1.3.0";
+            version = "1.4.0";
             src = self;
 
-            inherit buildInputs;
+            buildInputs = with pkgs.darwin.apple_sdk.frameworks; [
+              Carbon
+              Cocoa
+              ScriptingBridge
+              SkyLight
+            ];
 
             installPhase = ''
               mkdir -p $out/bin
@@ -45,16 +36,17 @@
               license = licenses.mit;
             };
           };
-
-        overlay = final: prev: {
-          spacebar = self.packages.x86_64-darwin.spacebar;
         };
 
-        defaultPackage.x86_64-darwin = self.packages.x86_64-darwin.spacebar;
+        defaultPackage = packages.spacebar;
+        apps.spacebar = flake-utils.lib.mkApp { drv = packages.spacebar; };
+        defaultApp = apps.spacebar;
+        overlay = final: prev: { spacebar = packages.spacebar; };
 
-        devShell.x86_64-darwin = pkgs.stdenv.mkDerivation {
+        devShell = pkgs.mkShell {
           name = "spacebar";
-          buildInputs = shellInputs;
+          inputsFrom = [ packages.spacebar ];
+          buildInputs = [ pkgs.asciidoctor ];
         };
-      };
+      });
 }
