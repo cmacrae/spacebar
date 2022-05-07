@@ -5,7 +5,10 @@
   inputs.flake-utils.url = github:numtide/flake-utils;
 
   outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachSystem [ "aarch64-darwin" "x86_64-darwin" ] (system:
+    {
+      overlay = final: prev: { inherit (self.packages.${final.system}) spacebar; };
+    }
+    // flake-utils.lib.eachSystem [ "aarch64-darwin" "x86_64-darwin" ] (system:
       let pkgs = nixpkgs.legacyPackages.${system}; in
       rec {
         packages = flake-utils.lib.flattenTree {
@@ -41,7 +44,6 @@
         defaultPackage = packages.spacebar;
         apps.spacebar = flake-utils.lib.mkApp { drv = packages.spacebar; };
         defaultApp = apps.spacebar;
-        overlay = final: prev: { spacebar = packages.spacebar; };
 
         devShell = pkgs.mkShell {
           name = "spacebar";
