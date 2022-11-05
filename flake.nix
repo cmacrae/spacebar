@@ -1,12 +1,13 @@
 {
   description = "A minimal status bar for macOS";
 
-  inputs.nixpkgs.url = github:NixOS/nixpkgs/21.11;
+  inputs.nixpkgs.url = github:NixOS/nixpkgs/22.05;
   inputs.flake-utils.url = github:numtide/flake-utils;
 
   outputs = { self, nixpkgs, flake-utils }:
-    {
+    rec {
       overlay = final: prev: { inherit (self.packages.${final.system}) spacebar; };
+      overlays.default = overlay;
     }
     // flake-utils.lib.eachSystem [ "aarch64-darwin" "x86_64-darwin" ] (system:
       let pkgs = nixpkgs.legacyPackages.${system}; in
