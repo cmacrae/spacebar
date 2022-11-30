@@ -15,7 +15,7 @@ static inline void cycle_counter_tick(const char *name, struct cycle_counter *co
     uint64_t cycle_count = __sync_add_and_fetch(&counter->cycle_count, elapsed_cycles);
     uint64_t hit_count = __sync_add_and_fetch(&counter->hit_count, 1);
     fprintf(stdout, "%30s: hits %'25lld | cur %'25lld | avg %'25lld\n",
-            name, hit_count, elapsed_cycles, cycle_count / hit_count)
+            name, hit_count, elapsed_cycles, cycle_count / hit_count);
 }
 #endif
 
