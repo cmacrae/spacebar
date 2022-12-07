@@ -453,16 +453,25 @@ void bar_refresh(struct bar *bar)
     if (g_bar_manager.center_shell_on) {
         int overlap_right = 0;
 
-	struct bar_line center_shell_line = bar_prepare_line(g_bar_manager.t_font, g_bar_manager.center_shell_output, g_bar_manager.foreground_color);
-	CGPoint pos = bar_align_line(bar, center_shell_line, ALIGN_CENTER, ALIGN_CENTER);
+	      struct bar_line center_shell_line = bar_prepare_line(g_bar_manager.t_font, g_bar_manager.center_shell_output, g_bar_manager.foreground_color);
+	      CGPoint pos = bar_align_line(bar, center_shell_line, ALIGN_CENTER, ALIGN_CENTER);
 
-        if (bar_left_final_item_x >= pos.x) {
-	  pos.x = bar_left_final_item_x + 100;
-	}
+        struct bar_line cso_icon = g_bar_manager.center_shell_icon;
+        cso_icon.color = g_bar_manager.center_shell_icon_color;
+        CGPoint ci_pos = bar_align_line(bar, cso_icon, 0, ALIGN_CENTER);
+        ci_pos.x = pos.x - cso_icon.bounds.size.width - 5;
+        bar_center_first_item_x = ci_pos.x - g_bar_manager.spacing_right;
+
+        bar_draw_line(bar, cso_icon, ci_pos.x, ci_pos.y);
+
+        if (bar_left_final_item_x >= ci_pos.x) {
+	          ci_pos.x = bar_left_final_item_x + 100;
+	          pos.x = bar_left_final_item_x + 100;
+	      }
 
         if (bar_right_first_item_x <= (pos.x + center_shell_line.bounds.size.width)) {
-	  overlap_right = (pos.x + center_shell_line.bounds.size.width) - bar_right_first_item_x;
-	}
+	          overlap_right = (pos.x + center_shell_line.bounds.size.width) - bar_right_first_item_x;
+	      }
 
 	if (overlap_right > 0) {
 	  int truncated_width = (int)center_shell_line.bounds.size.width - (overlap_right + 100);

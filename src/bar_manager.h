@@ -17,6 +17,7 @@ struct bar_manager
   char *_dnd_icon;
   char *_left_shell_icon;
   char *_right_shell_icon;
+  char *_center_shell_icon;
   char *position;
   char *display;
   char *_display_separator_icon;
@@ -52,6 +53,7 @@ struct bar_manager
   struct rgba_color dnd_icon_color;
   struct rgba_color left_shell_icon_color;
   struct rgba_color right_shell_icon_color;
+  struct rgba_color center_shell_icon_color;
   struct rgba_color display_separator_icon_color;
   struct rgba_color background_color_dim;
   struct bar_line *space_icon_strip;
@@ -64,6 +66,7 @@ struct bar_manager
   struct bar_line left_shell_icon;
   struct bar_line right_shell;
   struct bar_line right_shell_icon;
+  struct bar_line center_shell_icon;
   struct bar_line center_shell;
   struct bar_line display_separator_icon;
 };
@@ -80,6 +83,7 @@ void bar_manager_set_dnd_icon_color(struct bar_manager *bar_manager, uint32_t co
 void bar_manager_set_display_separator_icon_color(struct bar_manager *bar_manager, uint32_t color);
 void bar_manager_set_left_shell_icon_color(struct bar_manager *bar_manager, uint32_t color);
 void bar_manager_set_right_shell_icon_color(struct bar_manager *bar_manager, uint32_t color);
+void bar_manager_set_center_shell_icon_color(struct bar_manager *bar_manager, uint32_t color);
 void bar_manager_set_text_font(struct bar_manager *bar_manager, char *font_string);
 void bar_manager_set_icon_font(struct bar_manager *bar_manager, char *font_string);
 void bar_manager_set_space_strip(struct bar_manager *bar_manager, char **icon_strip);
@@ -93,6 +97,7 @@ void bar_manager_set_left_shell_icon(struct bar_manager *bar_manager, char *icon
 void bar_manager_set_display_separator(struct bar_manager *bar_manager, bool value);
 void bar_manager_set_display_separator_icon(struct bar_manager *bar_manager, char *icon);
 void bar_manager_set_right_shell_icon(struct bar_manager *bar_manager, char *icon);
+void bar_manager_set_center_shell_icon(struct bar_manager *bar_manager, char *icon);
 void bar_manager_set_position(struct bar_manager *bar_manager, char *pos);
 void bar_manager_set_title(struct bar_manager *bar_manager, bool value);
 void bar_manager_set_spaces(struct bar_manager *bar_manager, bool value);

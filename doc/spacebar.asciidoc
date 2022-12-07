@@ -195,6 +195,12 @@ Settings
     Command pipeline to retrieve the output for displaying in the right shell section. +
     There is NO timeout protection for the command pipeline, so be sure to set it to something that returns output quickly. 
 
+*center_shell_icon* ['<sym>']::
+    Specify a symbol to prefix the center shell output.
+
+*center_shell_icon_color* ['<COLOR>']::
+    Color to use for drawing the center shell icon.
+
 *center_shell_command* ['<shell command>']::
     Command pipeline to retrieve the output for displaying in the center shell section. +
     There is NO timeout protection for the command pipeline, so be sure to set it to something that returns output quickly. +
