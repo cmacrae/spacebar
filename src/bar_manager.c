@@ -10,6 +10,7 @@ void bar_manager_set_foreground_color(struct bar_manager *bar_manager, uint32_t 
     if (bar_manager->_space_icon) bar_manager_set_space_icon(bar_manager, bar_manager->_space_icon);
     if (bar_manager->_left_shell_icon) bar_manager_set_left_shell_icon(bar_manager, bar_manager->_left_shell_icon);
     if (bar_manager->_right_shell_icon) bar_manager_set_right_shell_icon(bar_manager, bar_manager->_right_shell_icon);
+    if (bar_manager->_center_shell_icon) bar_manager_set_center_shell_icon(bar_manager, bar_manager->_center_shell_icon);
     if (bar_manager->_display_separator_icon) bar_manager_set_display_separator_icon(bar_manager, bar_manager->_display_separator_icon);
     bar_manager_refresh(bar_manager);
 }
@@ -74,6 +75,12 @@ void bar_manager_set_right_shell_icon_color(struct bar_manager *bar_manager, uin
   bar_manager_refresh(bar_manager);
 }
 
+void bar_manager_set_center_shell_icon_color(struct bar_manager *bar_manager, uint32_t color)
+{
+  bar_manager->center_shell_icon_color = rgba_color_from_hex(color);
+  bar_manager_refresh(bar_manager);
+}
+
 void bar_manager_set_display_separator_icon_color(struct bar_manager *bar_manager, uint32_t color)
 {
   bar_manager->display_separator_icon_color = rgba_color_from_hex(color);
@@ -120,6 +127,7 @@ void bar_manager_set_icon_font(struct bar_manager *bar_manager, char *font_strin
     if (bar_manager->_dnd_icon) bar_manager_set_dnd_icon(bar_manager, bar_manager->_dnd_icon);
     if (bar_manager->_left_shell_icon) bar_manager_set_left_shell_icon(bar_manager, bar_manager->_left_shell_icon);
     if (bar_manager->_right_shell_icon) bar_manager_set_right_shell_icon(bar_manager, bar_manager->_right_shell_icon);
+    if (bar_manager->_center_shell_icon) bar_manager_set_center_shell_icon(bar_manager, bar_manager->_center_shell_icon);
     if (bar_manager->_display_separator_icon) bar_manager_set_display_separator_icon(bar_manager, bar_manager->_display_separator_icon);
     bar_manager_refresh(bar_manager);
 }
@@ -278,6 +286,25 @@ void bar_manager_set_right_shell_icon(struct bar_manager *bar_manager, char *ico
   }
 
   bar_manager->right_shell_icon = bar_prepare_line(bar_manager->i_font, bar_manager->_right_shell_icon, bar_manager->right_shell_icon_color);
+
+  bar_manager_refresh(bar_manager);
+}
+
+void bar_manager_set_center_shell_icon(struct bar_manager *bar_manager, char *icon)
+{
+  if (bar_manager->center_shell_icon.line) {
+    bar_destroy_line(bar_manager->center_shell_icon);
+  }
+
+  if (icon != bar_manager->_center_shell_icon) {
+    if (bar_manager->_center_shell_icon) {
+      free(bar_manager->_center_shell_icon);
+    }
+
+    bar_manager->_center_shell_icon = icon;
+  }
+
+  bar_manager->center_shell_icon = bar_prepare_line(bar_manager->i_font, bar_manager->_center_shell_icon, bar_manager->center_shell_icon_color);
 
   bar_manager_refresh(bar_manager);
 }
@@ -567,6 +594,8 @@ void bar_manager_init(struct bar_manager *bar_manager)
     bar_manager->left_shell_icon_color = rgba_color_from_hex(0xffa8a8a8);
     bar_manager_set_right_shell_icon(bar_manager, string_copy(""));
     bar_manager->right_shell_icon_color = rgba_color_from_hex(0xffa8a8a8);
+    bar_manager_set_center_shell_icon(bar_manager, string_copy(""));
+    bar_manager->center_shell_icon_color = rgba_color_from_hex(0xffa8a8a8);
     bar_manager->left_shell_output = "";
     bar_manager->right_shell_output = "";
     bar_manager->center_shell_output = "";
