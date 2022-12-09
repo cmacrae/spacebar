@@ -49,6 +49,11 @@ brew install cmacrae/formulae/spacebar
 brew services start spacebar
 ```
 
+spacebar is also available [via MacPorts][portfile]: `sudo port install spacebar`
+
+[portfile]: https://github.com/macports/macports-ports/blob/master/sysutils/spacebar/Portfile
+
+
 ### Nix
 A package is generally available to Nix users on macOS in the various channels.  
 A [Flake](https://nixos.wiki/wiki/Flakes) is also available in this repository and can be used like so:
