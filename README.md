@@ -109,7 +109,7 @@ spacebar -m config padding_right        20
 spacebar -m config spacing_left         25
 spacebar -m config spacing_right        15
 spacebar -m config text_font            "Helvetica Neue:Bold:12.0"
-spacebar -m config icon_font            "Font Awesome 5 Free:Solid:12.0"
+spacebar -m config icon_font            "Font Awesome 6 Free:Solid:12.0"
 spacebar -m config background_color     0xff202020
 spacebar -m config foreground_color     0xffa8a8a8
 spacebar -m config space_icon_color     0xff458588
@@ -153,7 +153,7 @@ If you're using the `services.spacebar` module from [nix-darwin](https://github.
     spacing_left               = 25;
     spacing_right              = 15;
     text_font                  = ''"Menlo:Regular:12.0"'';
-    icon_font                  = ''"Font Awesome 5 Free:Solid:12.0"'';
+    icon_font                  = ''"Font Awesome 6 Free:Solid:12.0"'';
     background_color           = "0xff202020";
     foreground_color           = "0xffa8a8a8";
     power_icon_color           = "0xffcd950c";
