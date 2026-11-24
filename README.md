@@ -1,4 +1,18 @@
 <!-- Please be careful editing the below HTML, as GitHub is quite finicky with anything that looks like an HTML tag in GitHub Flavored Markdown. -->
+> [!IMPORTANT]
+> spacebar is no longer maintained. Its successor is **[kantan](https://github.com/cmacrae/kantan)**, a beautifully simple status bar for macOS with native modules, plugins in any language, popups, themes and more. Find it at [kantan.bar](https://kantan.bar).
+
+<p align="center">
+  <a href="https://kantan.bar">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/cmacrae/kantan/main/web/images/readme-dark.png">
+      <img src="https://raw.githubusercontent.com/cmacrae/kantan/main/web/images/readme-light.png" alt="kantan · かんたん: the kantan bar across the top of a macOS desktop" width="720">
+    </picture>
+  </a>
+</p>
+
+---
+
 <p align="center">
   <b>A minimal status bar for macOS</b>
 </p>
